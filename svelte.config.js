@@ -1,8 +1,9 @@
-import adapterAuto from '@sveltejs/adapter-auto';
+import adapterStatic from '@sveltejs/adapter-static';
 import adapterVercel from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const isVercel = process.env.VERCEL === '1';
+const isGitHubPages = process.env.GITHUB_PAGES === '1';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -18,7 +19,9 @@ const config = {
 			? adapterVercel({
 					runtime: 'nodejs22.x'
 				})
-			: adapterAuto()
+			: isGitHubPages || process.env.CI === 'true'
+				? adapterStatic()
+				: adapterStatic()
 	}
 };
 
