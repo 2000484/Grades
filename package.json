@@ -57,5 +57,13 @@
 		"workerDirectory": [
 			"static"
 		]
-	}
+	},
+  "extends": "./.svelte-kit/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "$lib": ["src/lib"],
+      "$lib/*": ["src/lib/*"]
+    }
+  }
 }

@@ -3,14 +3,14 @@
 	import { brand } from '$lib/brand';
 	import * as Alert from '$lib/components/ui/alert';
 	import { Button } from '$lib/components/ui/button';
-	import { parseSynergyAssignment } from '$lib/grades/assignments';
+	import { parseSynergyAssignment } from '$lib/Grades/assignments';
 	import {
 		getReportPeriodName,
 		gradebookState,
 		switchReportPeriod
-	} from '$lib/grades/catalog.svelte';
-	import { getActiveGradebook } from '$lib/grades/gradebook';
-	import { seenAssignmentIDs } from '$lib/grades/seenAssignments.svelte';
+	} from '$lib/Grades/catalog.svelte';
+	import { getActiveGradebook } from '$lib/Grades/gradebook';
+	import { seenAssignmentIDs } from '$lib/Grades/seenAssignments.svelte';
 	import type { Course } from '$lib/types/Gradebook';
 	import CircleXIcon from '@lucide/svelte/icons/circle-x';
 	import CourseButton from './CourseButton.svelte';
@@ -35,7 +35,7 @@
 		const assignments = course.Marks.Mark.Assignments.Assignment;
 		if (!assignments) return 0;
 
-		return assignments.map(parseSynergyAssignment).filter(({ id }) => !seenAssignmentIDs.has(id))
+		return assignments.map(parseSynergyAssignment).filter(({ id }: { id: string }) => !seenAssignmentIDs.has(id))
 			.length;
 	}
 
@@ -51,15 +51,15 @@
 	const hasNoGrades = $derived(
 		courses
 			? courses
-					.map((course) => (course.Marks === '' ? 'N/A' : course.Marks.Mark._CalculatedScoreString))
-					.every((score) => score === 'N/A')
+					.map((course: Course) => (course.Marks === '' ? 'N/A' : course.Marks.Mark._CalculatedScoreString))
+					.every((score: string) => score === 'N/A')
 			: false
 	);
 
 	const totalUnseenAssignments = $derived.by(() => {
 		if (!courses) return 0;
 
-		return courses.reduce((total, course) => {
+		return courses.reduce((total: number, course: Course) => {
 			return total + getCourseUnseenAssignmentsCount(course);
 		}, 0);
 	});
@@ -69,7 +69,7 @@
 		const assignments = course.Marks.Mark.Assignments.Assignment;
 		if (!assignments) return;
 
-		assignments.map(parseSynergyAssignment).forEach(({ id }) => seenAssignmentIDs.add(id));
+		assignments.map(parseSynergyAssignment).forEach(({ id }: { id: string }) => seenAssignmentIDs.add(id));
 	};
 
 	const clearAllUnseenAssignments = (courses: Course[]) =>

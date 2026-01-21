@@ -2,8 +2,8 @@
 	import { removeCourseType } from '$lib';
 	import { brand } from '$lib/brand';
 	import { Spinner } from '$lib/components/ui/spinner';
-	import { initializeGradebookCatalog } from '$lib/grades/catalog.svelte';
-	import { getActiveGradebook } from '$lib/grades/gradebook';
+	import { initializeGradebookCatalog } from '$lib/Grades/catalog.svelte';
+	import { getActiveGradebook } from '$lib/Grades/gradebook';
 	import AppWindowMacIcon from '@lucide/svelte/icons/app-window-mac';
 	import BellIcon from '@lucide/svelte/icons/bell';
 	import CircleUserIcon from '@lucide/svelte/icons/circle-user';
@@ -38,7 +38,7 @@
 	const data = {
 		grades: {
 			title: 'Grades',
-			url: '/grades',
+			url: base + '/grades',
 			icon: NotebookTextIcon
 		},
 		header: [
@@ -98,14 +98,14 @@
 })}
 	<div class="px-4 py-3 border-b border-border/20 hover:bg-muted/30 transition-colors">
 		{#if url}
-			<a href={url} class="flex items-center gap-3 text-foreground no-underline" on:click={() => isMenuOpen = false}>
+			<a href={url} class="flex items-center gap-3 text-foreground no-underline" onclick={() => isMenuOpen = false}>
 				<Icon class="h-5 w-5 text-primary" />
 				<span class="font-medium">{title}</span>
 			</a>
 		{:else}
 			<button 
 				type="button"
-				on:click={() => {
+				onclick={() => {
 					onclick?.();
 					isMenuOpen = false;
 				}} 
@@ -122,7 +122,7 @@
 <div class="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border/30 h-16 flex items-center px-4 block md:hidden backdrop-blur-md animate-in fade-in duration-300">
 	<button 
 		type="button"
-		on:click={() => isMenuOpen = !isMenuOpen}
+		onclick={() => isMenuOpen = !isMenuOpen}
 		class="p-2 -ml-2 hover:bg-muted/50 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95"
 		aria-label="Toggle menu"
 	>
@@ -133,7 +133,7 @@
 		{/if}
 	</button>
 	<a
-		href="/grades"
+		href="{base}/grades"
 		class="mr-auto ml-3 flex items-center gap-2 text-xl font-bold tracking-tight whitespace-nowrap text-white animate-in fade-in slide-in-from-left duration-500"
 	>
 		<img src="/favicon.svg" class="size-6" alt={brand} />
@@ -145,8 +145,8 @@
 {#if isMenuOpen}
 	<div 
 		class="fixed inset-0 z-40 block md:hidden bg-black/50"
-		on:click={() => isMenuOpen = false}
-		on:keydown={(e) => e.key === 'Escape' && (isMenuOpen = false)}
+		onclick={() => isMenuOpen = false}
+		onkeydown={(e) => e.key === 'Escape' && (isMenuOpen = false)}
 		role="button"
 		tabindex="0"
 		transition:fade={{ duration: 150 }}
@@ -181,7 +181,7 @@
 						<button
 							type="button"
 							class="text-sm text-foreground no-underline hover:text-foreground w-full text-left bg-transparent border-none cursor-pointer"
-							on:click={() => {
+							onclick={() => {
 								window.location.href = `${data.grades.url}/${index.toString()}`;
 								isMenuOpen = false;
 							}}
@@ -217,7 +217,7 @@
 				<button
 					type="button"
 					class="flex items-center gap-3 text-foreground no-underline w-full bg-transparent border-none cursor-pointer"
-					on:click={() => {
+					onclick={() => {
 						window.location.href = data.user.url;
 						isMenuOpen = false;
 					}}
@@ -231,7 +231,7 @@
 			<div class="flex flex-col">
 				<button 
 					type="button"
-					on:click={data.logout.onclick}
+					onclick={data.logout.onclick}
 					class="px-4 py-3 flex items-center gap-3 text-foreground bg-transparent border-none hover:bg-destructive/10 transition-colors w-full justify-start cursor-pointer"
 				>
 					<data.logout.icon class="h-5 w-5 text-destructive" />

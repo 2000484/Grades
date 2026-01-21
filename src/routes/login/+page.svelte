@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import { LocalStorageKey } from '$lib';
 	import { acc, loadStudentAccount } from '$lib/account.svelte';
@@ -19,7 +20,7 @@
 	if (browser && localStorage.getItem(LocalStorageKey.token) !== null) {
 		if (!acc.studentAccount) loadStudentAccount();
 
-		void goto('/grades');
+		void goto(base + base + '/grades');
 	}
 
 	let username: string = $state('');
@@ -53,7 +54,7 @@
 
 		loggingIn = false;
 
-		void goto('/grades');
+		void goto(base + base + '/grades');
 	}
 
 </script>
@@ -88,7 +89,7 @@
 			<!-- Header -->
 			<div class="mb-4 flex flex-col items-center gap-4 animate-in fade-in slide-in-from-top duration-500">
 				<div class="p-3 bg-primary/10 rounded-xl border border-primary/20">
-					<img src="/favicon.svg" class="h-12 w-12 animate-in zoom-in duration-300" alt={brand} />
+					<img src="{base}/favicon.svg" class="h-12 w-12 animate-in zoom-in duration-300" alt={brand} />
 				</div>
 				<div class="text-center">
 					<h1 class="text-4xl font-bold animate-in fade-in duration-500 delay-100 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">{brand}</h1>

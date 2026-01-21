@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { brand } from '$lib/brand';
+	import { base } from '$app/paths';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
 	import RefreshCwIcon from '@lucide/svelte/icons/refresh-cw';
 	import { fade } from 'svelte/transition';
@@ -28,7 +29,7 @@
 
 	function logOut() {
 		localStorage.clear();
-		location.assign('/login');
+		location.assign(base + '/login');
 	}
 
 	function refresh() {
@@ -61,10 +62,10 @@
 
 	<!-- Center Section: Brand Logo (Absolutely Centered) -->
 	<a
-		href="/grades"
+		href="{base}/Grades"
 		class="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-xl font-bold tracking-tight whitespace-nowrap text-white cursor-pointer hover:opacity-80 transition-opacity"
 	>
-		<img src="/favicon.svg" class="size-6" alt={brand} />
+		<img src="{base}/favicon.svg" class="size-6" alt={brand} />
 		{brand}
 	</a>
 
@@ -108,7 +109,7 @@
 			transition:fade={{ duration: 150 }}
 		>
 			<nav class="py-4">
-				<a href="/grades" class="block px-4 py-3 text-foreground hover:bg-muted/50 transition-all duration-200 cursor-pointer hover:text-primary animate-in fade-in slide-in-from-left duration-300 whitespace-nowrap" onclick={closeMenu}>
+				<a href="{base}/Grades" class="block px-4 py-3 text-foreground hover:bg-muted/50 transition-all duration-200 cursor-pointer hover:text-primary animate-in fade-in slide-in-from-left duration-300 whitespace-nowrap" onclick={closeMenu}>
 					Grades
 				</a>
 				<a href="/attendance" class="block px-4 py-3 text-foreground hover:bg-muted/50 transition-all duration-200 cursor-pointer hover:text-primary animate-in fade-in slide-in-from-left duration-300 delay-75 whitespace-nowrap" onclick={closeMenu}>

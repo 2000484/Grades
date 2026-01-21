@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { numberFlowDefaultEasing, removeCourseType, tailwindColors } from '$lib';
+	import { numberFlowDefaultEasing, removeCourseType, tailwindColors, type BadgeColor } from '$lib';
 	import { brand } from '$lib/brand';
 	import * as Alert from '$lib/components/ui/alert';
 	import { Button } from '$lib/components/ui/button';
@@ -27,10 +27,10 @@
 		randomAssignmentID,
 		type ReactiveAssignment,
 		type RealAssignment
-	} from '$lib/grades/assignments';
-	import { getActiveGradebook } from '$lib/grades/gradebook';
-	import { saveSeenAssignmentsToLocalStorage } from '$lib/grades/seenAssignments';
-	import { seenAssignmentIDs } from '$lib/grades/seenAssignments.svelte';
+	} from '$lib/Grades/assignments';
+	import { getActiveGradebook } from '$lib/Grades/gradebook';
+	import { saveSeenAssignmentsToLocalStorage } from '$lib/Grades/seenAssignments';
+	import { seenAssignmentIDs } from '$lib/Grades/seenAssignments.svelte';
 	import CircleAlertIcon from '@lucide/svelte/icons/circle-alert';
 	import CircleXIcon from '@lucide/svelte/icons/circle-x';
 	import Columns3CogIcon from '@lucide/svelte/icons/columns-3-cog';
@@ -175,7 +175,7 @@
 				: undefined
 	);
 	const unseenAssignments = $derived(
-		realAssignments.filter(({ id }) => !seenAssignmentIDs.has(id))
+		realAssignments.filter(({ id }: { id: string }) => !seenAssignmentIDs.has(id))
 	);
 
 	let pinChart = $state(false);
@@ -186,7 +186,7 @@
 	}
 	const gradeCategoryWeightProportions: Map<string, number> | undefined = $derived(
 		gradeCategories
-			? new Map(gradeCategories.map(({ name, weightPercentage }) => [name, weightPercentage / 100]))
+			? new Map(gradeCategories.map(({ name, weightPercentage }: { name: string; weightPercentage: number }) => [name, weightPercentage / 100]))
 			: undefined
 	);
 
@@ -195,22 +195,22 @@
 	);
 
 	const assignmentCategoryNames = $derived(
-		new Set(realAssignments.map((assignment) => assignment.category).toSorted())
+		new Set(realAssignments.map((assignment: { category: string }) => assignment.category).toSorted())
 	);
 
 	const assignmentCategoryColors = $derived(
 		new Map(
-			[...assignmentCategoryNames].map((name, i) => [
+			[...assignmentCategoryNames].map((name: string, i: number) => [
 				name,
 				tailwindColors[(i * 4) % tailwindColors.length]!
 			])
-		)
+		) as Map<string, BadgeColor>
 	);
 
 	let showCategoryTable = $state(false);
 
 	function markSeenAssignments() {
-		realAssignments.forEach(({ id }) => seenAssignmentIDs.add(id));
+		realAssignments.forEach(({ id }: { id: string }) => seenAssignmentIDs.add(id));
 		saveSeenAssignmentsToLocalStorage(seenAssignmentIDs);
 	}
 </script>

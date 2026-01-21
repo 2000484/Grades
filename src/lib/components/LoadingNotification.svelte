@@ -63,7 +63,7 @@
 		>
 			<div class="flex items-start gap-3">
 				<div class="mt-1">
-					<svelte:component this={getIcon(notificationState.loadingNotification.type)} class="h-5 w-5" />
+				<svelte:component this={getIcon(notificationState.loadingNotification.type)} class="h-5 w-5" />
 				</div>
 				<div class="flex-1 min-w-0">
 					<div class="font-semibold text-sm text-foreground">
@@ -87,7 +87,7 @@
 		>
 			<div class="flex items-start gap-3">
 				<div class="mt-0.5">
-					<svelte:component this={getIcon(notification.type)} class="h-5 w-5" />
+				<svelte:component this={getIcon(notification.type)} class="h-5 w-5" />
 				</div>
 				<div class="flex-1 min-w-0">
 					<div class="text-sm text-foreground">

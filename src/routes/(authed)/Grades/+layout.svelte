@@ -11,7 +11,7 @@
 		gradebookState,
 		initializeGradebookCatalog,
 		switchReportPeriod
-	} from '$lib/grades/catalog.svelte';
+	} from '$lib/Grades/catalog.svelte';
 	import AlertCircleIcon from '@lucide/svelte/icons/alert-circle';
 	import HistoryIcon from '@lucide/svelte/icons/history';
 	import { onMount } from 'svelte';
